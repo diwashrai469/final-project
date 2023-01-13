@@ -115,6 +115,7 @@ class _mymapState extends State<mymap> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                mywidget("hello", Colors.green),
                 Card(
                   elevation: 3,
                   child: Padding(
