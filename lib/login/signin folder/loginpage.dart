@@ -46,13 +46,12 @@ class _loginpageState extends State<loginpage> {
                         ),
                         Card(
                           child: TextFormField(
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Enter cannot be empty.";
-                              }
-                            },
+                            // validator: (value) {
+                            //   if (value == null || value.isEmpty) {
+                            //     return "Enter cannot be empty.";
+                            //   }
+                            // },
                             decoration: const InputDecoration(
-                                border: InputBorder.none,
                                 icon: Padding(
                                   padding: EdgeInsets.all(8.0),
                                   child: Icon(Icons.person),
