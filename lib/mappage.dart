@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ffi';
 
+import 'package:digital_map/NearByPlace.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -24,7 +25,7 @@ class _mymapState extends State<mymap> {
           infoWindow: const InfoWindow(title: "My current location")));
       CameraPosition cameraPosition = CameraPosition(
         target: LatLng(value.latitude, value.longitude),
-        zoom: 14,
+        zoom: 15,
       );
       final GoogleMapController controller = await _controller.future;
       controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
@@ -120,7 +121,11 @@ class _mymapState extends State<mymap> {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                         onTap: () {
-                          print(("restaurant"));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NearByPlacesScreen()),
+                          );
                         },
                         child: Row(
                           children: const [
@@ -173,8 +178,8 @@ class _mymapState extends State<mymap> {
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
               },
-              initialCameraPosition:
-                  CameraPosition(target: LatLng(27.6710, 85.4298), zoom: 14))),
+              initialCameraPosition: const CameraPosition(
+                  target: LatLng(27.6710, 85.4298), zoom: 15))),
     );
   }
 }
