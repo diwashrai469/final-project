@@ -1,79 +1,122 @@
 import 'dart:convert';
+import 'dart:ffi';
 
-import 'package:digital_map/api%20folder/api_from_rapid.dart';
-import 'package:digital_map/model%20for%20respnse/place.dart';
+import 'package:digital_map/model%20for%20respnse/geolocation_model.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
+//this gives the api of food and lodge
+
 class NearByPlacesScreen extends StatefulWidget {
-  const NearByPlacesScreen({Key? key}) : super(key: key);
+  String place;
+  String topic;
+  NearByPlacesScreen({required this.place, required this.topic});
 
   @override
-  State<NearByPlacesScreen> createState() => _NearByPlacesScreenState();
+  State<NearByPlacesScreen> createState() =>
+      _NearByPlacesScreenState(place, topic);
 }
 
 class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
   List myplacelist = [];
+  String place;
+  String topic;
+  _NearByPlacesScreenState(this.place, this.topic);
+
   void getNearbyPlaces() async {
-    var uri = Uri.https('trueway-places.p.rapidapi.com', '/FindPlacesNearby', {
-      "location": "27.7172,85.3240",
-      "type": "restaurant",
-      "radius": "150",
-      "language": "en"
-    });
+    GeolocationModel.determinePosition().then((value) async {
+      var lat = value.latitude;
+      var long = value.longitude;
 
-    final response = await http.get(uri, headers: {
-      "X-RapidAPI-Key": "74b4f14334msha990350646a5892p1bd3bejsn63e2fa695c91",
-      "X-RapidAPI-Host": "trueway-places.p.rapidapi.com",
-      "useQueryString": "true"
-    });
+      var uri =
+          Uri.https('trueway-places.p.rapidapi.com', '/FindPlacesNearby', {
+        // "location": "${lat.toString()}, ${long.toString()}",
+        "location": "27.6710, 85.4298",
+        "type": place.toString(),
+        "radius": "150 ",
+        "language": "en"
+      });
 
-    Map data = jsonDecode(response.body);
-    myplacelist = data['results'];
+      final response = await http.get(uri, headers: {
+        "X-RapidAPI-Key": "74b4f14334msha990350646a5892p1bd3bejsn63e2fa695c91",
+        "X-RapidAPI-Host": "trueway-places.p.rapidapi.com",
+        "useQueryString": "true"
+      });
+
+      if (response.statusCode == 200) {
+        if (this.mounted) {
+          setState(() {
+            Map data = jsonDecode(response.body);
+            if (data.isEmpty || data == null) {
+              print("error in fetch");
+            }
+            myplacelist = data['results'];
+            if (myplacelist.isEmpty || myplacelist == null) {
+              Text("No any data");
+            } else
+              null;
+          });
+        }
+      }
+    });
   }
 
   @override
   void initState() {
-    setState(() {
-      getNearbyPlaces();
-    });
-
+    getNearbyPlaces();
     // TODO: implement initState
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    print("app dposed");
+    getNearbyPlaces();
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Nearby Places'),
+        title: Text(topic),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
+        physics: ScrollPhysics(),
         child: Column(children: [
-          ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: myplacelist.length,
-              itemBuilder: (context, index) {
-                return myplacelist.isEmpty
-                    ? Center(child: CircularProgressIndicator())
-                    : Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                            child: Column(
-                          children: [
-                            Text(
-                              myplacelist[index]['name'].toString(),
-                              style: TextStyle(color: Colors.black),
-                            ),
-                            Text(
-                              myplacelist[index]['address'].toString(),
-                            ),
-                          ],
-                        )),
-                      );
-              }),
+          myplacelist.isEmpty || myplacelist == null
+              ? Center(
+                  child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircularProgressIndicator(),
+                ))
+              : ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: myplacelist.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                          child: ListTile(
+                        leading: Icon(
+                          Icons.restaurant_menu_rounded,
+                        ),
+                        title: Text(
+                          myplacelist[index]['name'],
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          myplacelist[index]['address'],
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      )),
+                    );
+                  }),
         ]),
       ),
     );

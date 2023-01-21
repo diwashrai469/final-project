@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:ffi';
 
-import 'package:digital_map/NearByPlace.dart';
+import 'package:digital_map/model%20for%20respnse/geolocation_model.dart';
+import 'package:digital_map/viewpage%20of%20food%20and%20ld/lodging_view.dart';
+import 'package:digital_map/viewpage%20of%20food%20and%20ld/restaurant_view.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class mymap extends StatefulWidget {
@@ -18,7 +19,7 @@ class _mymapState extends State<mymap> {
   final List<Marker> _markers = <Marker>[];
 
   loadcurretlocation() {
-    _determinePosition().then((value) async {
+    GeolocationModel.determinePosition().then((value) async {
       _markers.add(Marker(
           markerId: const MarkerId('2'),
           position: LatLng(value.latitude, value.longitude),
@@ -121,11 +122,13 @@ class _mymapState extends State<mymap> {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => NearByPlacesScreen()),
-                          );
+                          setState(() {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RestaurantView()),
+                            );
+                          });
                         },
                         child: Row(
                           children: const [
@@ -149,7 +152,13 @@ class _mymapState extends State<mymap> {
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
                           onTap: () {
-                            print(("hotel"));
+                            setState(() {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LodgeView()),
+                              );
+                            });
                           },
                           child: Row(
                             children: const [
@@ -158,7 +167,7 @@ class _mymapState extends State<mymap> {
                                 color: Colors.black,
                               ),
                               Text(
-                                "Hotel",
+                                "Lodge",
                                 style: TextStyle(color: Colors.black),
                               )
                             ],
@@ -182,26 +191,4 @@ class _mymapState extends State<mymap> {
                   target: LatLng(27.6710, 85.4298), zoom: 15))),
     );
   }
-}
-
-Future<Position> _determinePosition() async {
-  bool serviceEnable;
-  LocationPermission permission;
-  serviceEnable = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnable) {
-    return Future.error("location service are disabled");
-  }
-
-  permission = await Geolocator.checkPermission();
-
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-  }
-
-  if (permission == LocationPermission.denied) {
-    return Future.error("location permision denied");
-  }
-
-  Position position = await Geolocator.getCurrentPosition();
-  return position;
 }
