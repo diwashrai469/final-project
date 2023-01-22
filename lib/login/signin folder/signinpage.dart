@@ -1,6 +1,8 @@
 import 'package:digital_map/login/signin%20folder/loginpage.dart';
 import 'package:flutter/material.dart';
 
+import '../../model for widget/textfield_model.dart';
+
 class signin extends StatefulWidget {
   const signin({super.key});
 
@@ -9,6 +11,7 @@ class signin extends StatefulWidget {
 }
 
 class _signinState extends State<signin> {
+  bool obscuretext = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +24,7 @@ class _signinState extends State<signin> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 const Text(
-                  "Signin",
+                  "Sign Up",
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -30,52 +33,47 @@ class _signinState extends State<signin> {
                 const SizedBox(
                   height: 10,
                 ),
-                Card(
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        icon: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Icon(Icons.person),
-                        ),
-                        labelText: "User name"),
-                  ),
-                ),
+                TextFieldView(
+                    labeltext: "User name",
+                    icon: Icon(Icons.person),
+                    hintText: "User name"),
                 const SizedBox(
                   height: 5,
                 ),
-                Card(
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        icon: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Icon(Icons.email),
-                        ),
-                        labelText: "User Email"),
-                  ),
-                ),
+                TextFieldView(
+                    labeltext: "User Email",
+                    icon: Icon(Icons.email),
+                    hintText: "User Email"),
                 const SizedBox(
                   height: 5,
                 ),
-                Card(
-                  child: TextFormField(
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      icon: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(Icons.lock),
-                      ),
-                      labelText: "Password",
-                    ),
-                  ),
+                TextFieldView(
+                  hintText: "Password",
+                  obscuretext: obscuretext,
+                  onPressedEye: () {
+                    print('eye pressed');
+                    setState(() {
+                      obscuretext = !obscuretext;
+                    });
+                  },
+                  labeltext: "Password",
+                  icon: Icon(Icons.lock),
                 ),
-                ElevatedButton(
-                    onPressed: () {},
-                    child: const Text(
-                      "SIGN UP",
-                    )),
+                const SizedBox(
+                  height: 10,
+                ),
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: LinearGradient(
+                          colors: [Colors.purpleAccent, Colors.indigoAccent])),
+                  child: MaterialButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "Sign Up",
+                        style: TextStyle(color: Colors.white),
+                      )),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -91,16 +89,26 @@ class _signinState extends State<signin> {
                   "Already have an account?",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
+                const SizedBox(
+                  height: 10,
+                ),
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: LinearGradient(
+                          colors: [Colors.purpleAccent, Colors.indigoAccent])),
+                  child: MaterialButton(
+                      onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => loginpage()),
                         );
-                      });
-                    },
-                    child: const Text("LOG IN"))
+                      },
+                      child: const Text(
+                        "Log In",
+                        style: TextStyle(color: Colors.white),
+                      )),
+                ),
               ]),
         ),
       ),

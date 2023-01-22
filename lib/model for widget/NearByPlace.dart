@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:ffi';
 
-import 'package:digital_map/model%20for%20respnse/geolocation_model.dart';
+import 'package:digital_map/model%20for%20widget/geolocation_model.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
 //this gives the api of food and lodge
+//model for restaurant view and lodging view
 
 class NearByPlacesScreen extends StatefulWidget {
   String place;
@@ -19,15 +19,16 @@ class NearByPlacesScreen extends StatefulWidget {
 }
 
 class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
-  List myplacelist = [];
+  List myplacelist = []; // for json response.
+  // value of place and topic is passed form restaurant_view and lodging_view.
   String place;
   String topic;
   _NearByPlacesScreenState(this.place, this.topic);
 
   void getNearbyPlaces() async {
     GeolocationModel.determinePosition().then((value) async {
-      var lat = value.latitude;
-      var long = value.longitude;
+      double lat = value.latitude;
+      double long = value.longitude;
 
       var uri =
           Uri.https('trueway-places.p.rapidapi.com', '/FindPlacesNearby', {
@@ -71,7 +72,7 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
 
   @override
   void dispose() {
-    print("app dposed");
+    print("app disposed");
     getNearbyPlaces();
     // TODO: implement dispose
     super.dispose();
