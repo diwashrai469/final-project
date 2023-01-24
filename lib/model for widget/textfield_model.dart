@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//model for textfiedl
 
 class TextFieldView extends StatelessWidget {
   String labeltext;
@@ -31,6 +32,7 @@ class TextFieldView extends StatelessWidget {
           suffixIcon: hintText.toLowerCase() == 'password'
               ? IconButton(
                   icon: Icon(
+                      //for obscuretext true and false with icons
                       obscuretext ? Icons.visibility_off : Icons.visibility,
                       color: Colors.black),
                   onPressed: onPressedEye,

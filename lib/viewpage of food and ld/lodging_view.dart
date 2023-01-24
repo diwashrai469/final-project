@@ -16,6 +16,7 @@ class _RestaurantViewState extends State<LodgeView> {
     return NearByPlacesScreen(
       place: "lodging",
       topic: "Nearby Lodge",
+      icon: Icon(Icons.hotel_rounded),
     );
   }
 }

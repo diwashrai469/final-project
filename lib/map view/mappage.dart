@@ -21,6 +21,7 @@ class _mymapState extends State<mymap> {
   final List<Marker> _markers = <Marker>[];
 
   loadcurretlocation() {
+    //for finding current loacation and marking it.
     GeolocationModel.determinePosition().then((value) async {
       _markers.add(Marker(
           markerId: const MarkerId('2'),
@@ -102,6 +103,8 @@ class _mymapState extends State<mymap> {
               print(val);
             },
             appBar: AppBar(
+              backgroundColor: Colors.grey.shade400,
+              elevation: 0,
               leading: Card(
                 elevation: 3,
                 child: Builder(
@@ -117,7 +120,6 @@ class _mymapState extends State<mymap> {
                   },
                 ),
               ),
-              backgroundColor: Colors.white,
               automaticallyImplyLeading: false,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

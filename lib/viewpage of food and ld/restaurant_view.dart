@@ -16,6 +16,7 @@ class _RestaurantViewState extends State<RestaurantView> {
     return NearByPlacesScreen(
       place: "restaurant",
       topic: "Nearby Restaurants",
+      icon: Icon(Icons.restaurant_menu_outlined),
     );
   }
 }

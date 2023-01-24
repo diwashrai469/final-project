@@ -11,11 +11,13 @@ import 'package:http/http.dart' as http;
 class NearByPlacesScreen extends StatefulWidget {
   String place;
   String topic;
-  NearByPlacesScreen({required this.place, required this.topic});
+  Icon icon;
+  NearByPlacesScreen(
+      {required this.place, required this.topic, required this.icon});
 
   @override
   State<NearByPlacesScreen> createState() =>
-      _NearByPlacesScreenState(place, topic);
+      _NearByPlacesScreenState(place, topic, icon);
 }
 
 class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
@@ -23,7 +25,8 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
   // value of place and topic is passed form restaurant_view and lodging_view.
   String place;
   String topic;
-  _NearByPlacesScreenState(this.place, this.topic);
+  Icon icon;
+  _NearByPlacesScreenState(this.place, this.topic, this.icon);
 
   void getNearbyPlaces() async {
     GeolocationModel.determinePosition().then((value) async {
@@ -81,7 +84,10 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
+        backgroundColor: Colors.black,
+        automaticallyImplyLeading: false,
         title: Text(topic),
         centerTitle: true,
       ),
@@ -89,7 +95,7 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
         physics: ScrollPhysics(),
         child: Column(children: [
           myplacelist.isEmpty || myplacelist == null
-              ? Center(
+              ? const Center(
                   child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CircularProgressIndicator(),
@@ -102,20 +108,21 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                          child: ListTile(
-                        leading: Icon(
-                          Icons.restaurant_menu_rounded,
-                        ),
-                        title: Text(
-                          myplacelist[index]['name'],
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          myplacelist[index]['address'],
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      )),
+                      child: Container(
+                        height: 90,
+                        child: Card(
+                            child: ListTile(
+                          leading: icon,
+                          title: Text(
+                            myplacelist[index]['name'],
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            myplacelist[index]['address'],
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        )),
+                      ),
                     );
                   }),
         ]),
