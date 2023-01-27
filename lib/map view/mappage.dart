@@ -19,10 +19,11 @@ class mymap extends StatefulWidget {
 class _mymapState extends State<mymap> {
   final Completer<GoogleMapController> _controller = Completer();
   final List<Marker> _markers = <Marker>[];
+  final mygeoloactor = GeolocationModel();
 
   loadcurretlocation() {
     //for finding current loacation and marking it.
-    GeolocationModel.determinePosition().then((value) async {
+    mygeoloactor.determinePosition().then((value) async {
       _markers.add(Marker(
           markerId: const MarkerId('2'),
           position: LatLng(value.latitude, value.longitude),

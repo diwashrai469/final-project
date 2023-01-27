@@ -8,9 +8,11 @@ class TextFieldView extends StatelessWidget {
   final void Function()? onPressedEye;
   String hintText;
   final String? Function(String?)? validator;
+  final TextEditingController? controller;
 
   TextFieldView({
     Key? key,
+    this.controller,
     this.validator,
     required this.labeltext,
     required this.icon,
@@ -23,6 +25,7 @@ class TextFieldView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: TextFormField(
+        controller: controller,
         validator: validator,
         obscureText: obscuretext as bool,
         decoration: InputDecoration(

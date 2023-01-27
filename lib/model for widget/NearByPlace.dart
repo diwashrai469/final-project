@@ -27,18 +27,19 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
   String topic;
   Icon icon;
   _NearByPlacesScreenState(this.place, this.topic, this.icon);
+  final mylocator = GeolocationModel();
 
   void getNearbyPlaces() async {
-    GeolocationModel.determinePosition().then((value) async {
+    mylocator.determinePosition().then((value) async {
       double lat = value.latitude;
       double long = value.longitude;
 
       var uri =
           Uri.https('trueway-places.p.rapidapi.com', '/FindPlacesNearby', {
-        // "location": "${lat.toString()}, ${long.toString()}",
-        "location": "27.6710, 85.4298",
+        "location": "${lat.toString()}, ${long.toString()}",
+        // "location": "27.6738, 85.3595",
         "type": place.toString(),
-        "radius": "150 ",
+        "radius": "300 ",
         "language": "en"
       });
 
@@ -49,7 +50,7 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
       });
 
       if (response.statusCode == 200) {
-        if (this.mounted) {
+        if (mounted) {
           setState(() {
             Map data = jsonDecode(response.body);
             if (data.isEmpty || data == null) {
@@ -76,7 +77,7 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
   @override
   void dispose() {
     print("app disposed");
-    getNearbyPlaces();
+    getNearbyPlaces(); // so that data will be disposed
     // TODO: implement dispose
     super.dispose();
   }

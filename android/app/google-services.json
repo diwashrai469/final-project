@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "953539257808",
+    "project_id": "digitalmap-ae7c4",
+    "storage_bucket": "digitalmap-ae7c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953539257808:android:0479a070e60639e4c2c5d5",
+        "android_client_info": {
+          "package_name": "com.example.digital_map"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953539257808-pvncdkikpgepmv2tl6kefb28n15nd4qv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASRGo9by7VsiyUwZhfFtsDUGiFcseIbV0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953539257808-pvncdkikpgepmv2tl6kefb28n15nd4qv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

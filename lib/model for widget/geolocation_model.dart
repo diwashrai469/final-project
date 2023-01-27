@@ -2,7 +2,7 @@ import 'package:geolocator/geolocator.dart';
 //gives the current location of the users
 
 class GeolocationModel {
-  static Future<Position> determinePosition() async {
+  Future<Position> determinePosition() async {
     bool serviceEnable;
     LocationPermission permission;
     serviceEnable = await Geolocator.isLocationServiceEnabled();
