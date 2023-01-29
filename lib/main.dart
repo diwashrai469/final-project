@@ -2,7 +2,7 @@ import 'package:digital_map/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'login/signin folder/loginpage.dart';
+import 'views/login/signin folder/loginpage.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();

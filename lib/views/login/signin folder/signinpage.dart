@@ -1,12 +1,12 @@
-import 'package:digital_map/login/signin%20folder/loginpage.dart';
-import 'package:digital_map/map%20view/mappage.dart';
-import 'package:digital_map/model%20for%20widget/alert_dialog_model.dart';
-import 'package:digital_map/model%20for%20widget/firebase/custome_button_model.dart';
-import 'package:digital_map/model%20for%20widget/validity_models.dart';
+import 'package:digital_map/views/login/signin%20folder/loginpage.dart';
+import 'package:digital_map/views/map%20view/mappage.dart';
+import 'package:digital_map/models/alert_dialog_model.dart';
+import 'package:digital_map/models/custome_button_model.dart';
+import 'package:digital_map/models/validity_models.dart';
 import 'package:flutter/material.dart';
 
-import '../../model for widget/firebase/firebase_auth.dart';
-import '../../model for widget/textfield_model.dart';
+import '../../../models/firebase/firebase_auth.dart';
+import '../../../models/textfield_model.dart';
 
 class signin extends StatefulWidget {
   const signin({super.key});
@@ -35,28 +35,28 @@ class _signinState extends State<signin> {
             child: Container(
           child: Padding(
             padding: EdgeInsets.all(8),
-            child: SingleChildScrollView(
-              child: Form(
-                key: _formkey,
-                child: Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.all(20),
-                  height: 500,
-                  width: 380,
-                  decoration: BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+            child: Form(
+              key: _formkey,
+              child: Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.all(20),
+                height: 500,
+                width: 380,
+                decoration: BoxDecoration(
+                  color: Colors.white70,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SingleChildScrollView(
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.max,

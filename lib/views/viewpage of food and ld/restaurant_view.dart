@@ -1,4 +1,4 @@
-import 'package:digital_map/model%20for%20widget/NearByPlace.dart';
+import 'package:digital_map/models/NearByPlace.dart';
 import 'package:flutter/material.dart';
 
 //this page shows all nearby restaurant by passing value restaurant

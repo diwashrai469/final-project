@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-//shows alert dialog in screen
+//shows alert dialog in screen in signinpage
 class myAlertDialog extends StatelessWidget {
   String? anotherText;
   String text;
@@ -19,7 +19,7 @@ class myAlertDialog extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: onPressed,
-            child: Text('OK'),
+            child: const Text('OK'),
           ),
         ]);
   }

@@ -3,9 +3,9 @@ import 'dart:ffi';
 
 //view google map and current location of the user
 
-import 'package:digital_map/model%20for%20widget/geolocation_model.dart';
-import 'package:digital_map/viewpage%20of%20food%20and%20ld/lodging_view.dart';
-import 'package:digital_map/viewpage%20of%20food%20and%20ld/restaurant_view.dart';
+import 'package:digital_map/models/geolocation_model.dart';
+import 'package:digital_map/views/viewpage%20of%20food%20and%20ld/lodging_view.dart';
+import 'package:digital_map/views/viewpage%20of%20food%20and%20ld/restaurant_view.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -104,7 +104,7 @@ class _mymapState extends State<mymap> {
               print(val);
             },
             appBar: AppBar(
-              backgroundColor: Colors.grey.shade400,
+              backgroundColor: Colors.grey.shade50,
               elevation: 0,
               leading: Card(
                 elevation: 3,
@@ -191,7 +191,7 @@ class _mymapState extends State<mymap> {
                 myLocationEnabled: true,
                 onTap: (value) {},
                 myLocationButtonEnabled: true,
-                mapType: MapType.hybrid,
+                mapType: MapType.terrain,
                 markers: Set<Marker>.of(_markers),
                 onMapCreated: (GoogleMapController controller) {
                   _controller.complete(controller);

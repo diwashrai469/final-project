@@ -1,15 +1,15 @@
 import 'dart:io';
 
-import 'package:digital_map/login/signin%20folder/signinpage.dart';
-import 'package:digital_map/map%20view/mappage.dart';
-import 'package:digital_map/model%20for%20widget/firebase/custome_button_model.dart';
-import 'package:digital_map/model%20for%20widget/firebase/firebase_auth.dart';
-import 'package:digital_map/model%20for%20widget/fluttertoast_model.dart';
-import 'package:digital_map/model%20for%20widget/validity_models.dart';
+import 'package:digital_map/views/login/signin%20folder/signinpage.dart';
+import 'package:digital_map/views/map%20view/mappage.dart';
+import 'package:digital_map/models/custome_button_model.dart';
+import 'package:digital_map/models/firebase/firebase_auth.dart';
+import 'package:digital_map/models/fluttertoast_model.dart';
+import 'package:digital_map/models/validity_models.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../model for widget/textfield_model.dart';
+import '../../../models/textfield_model.dart';
 
 class loginpage extends StatefulWidget {
   const loginpage({super.key});
@@ -42,26 +42,26 @@ class _loginpageState extends State<loginpage> {
               )),
               child: Form(
                 key: formkey,
-                child: SingleChildScrollView(
-                  child: Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.all(20),
-                    height: 400,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      color: Colors.white70,
-                      borderRadius: BorderRadius.circular(30),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.all(20),
+                  height: 400,
+                  width: 350,
+                  decoration: BoxDecoration(
+                    color: Colors.white70,
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SingleChildScrollView(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.max,
