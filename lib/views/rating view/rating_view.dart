@@ -15,7 +15,7 @@ class dialogForRating extends StatefulWidget {
 class _dialogForRatingState extends State<dialogForRating> {
   PageController _ratingPageController = PageController();
   double _starposition = 200;
-  int _starCount = 0;
+  double _starCount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -32,23 +32,12 @@ class _dialogForRatingState extends State<dialogForRating> {
                   controller: _ratingPageController,
                   children: [
                     ratingDialogContent().anotherPageContent(),
-                    ratingDialogContent2()
+                    ratingDialogContent2(
+                      newStarCount: _starCount,
+                    )
                   ],
                 )),
-            Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  color: Colors.red,
-                  child: MaterialButton(
-                    child: const Text(
-                      "Done",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onPressed: () {},
-                  ),
-                )),
+
             Positioned(
               right: 0,
               child: MaterialButton(
@@ -79,6 +68,7 @@ class _dialogForRatingState extends State<dialogForRating> {
                               setState(() {
                                 _starposition = 40;
                                 _starCount = index + 1;
+                                print("pressed");
                               });
                             },
                             icon: index < _starCount

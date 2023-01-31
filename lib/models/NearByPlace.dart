@@ -45,7 +45,7 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
       });
 
       final response = await http.get(uri, headers: {
-        "X-RapidAPI-Key": "74b4f14334msha990350646a5892p1bd3bejsn63e2fa695c91",
+        "X-RapidAPI-Key": "api key",
         "X-RapidAPI-Host": "trueway-places.p.rapidapi.com",
         "useQueryString": "true"
       });
