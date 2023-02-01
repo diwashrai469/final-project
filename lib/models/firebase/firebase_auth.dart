@@ -14,4 +14,18 @@ class firebaseauthservices {
 
     return userCred;
   }
+
+  Future<UserCredential> siginUser({
+    required String email,
+    required String password,
+  }) async {
+    final userCred = await firebasauthInstance.signInWithEmailAndPassword(
+        email: email, password: password);
+
+    return userCred;
+  }
+
+  Future<void> logoutUser() async {
+    await firebasauthInstance.signOut();
+  }
 }

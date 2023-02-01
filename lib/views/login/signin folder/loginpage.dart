@@ -25,6 +25,7 @@ class _loginpageState extends State<loginpage> {
   TextEditingController _emailcontroller = TextEditingController();
   TextEditingController _passwordcontroller = TextEditingController();
   final validators = validity();
+  final firebaseauthservice = firebaseauthservices();
 
   @override
   Widget build(BuildContext context) {
@@ -121,13 +122,15 @@ class _loginpageState extends State<loginpage> {
                                       });
                                       try {
                                         //for authorizing valid user and catching exception
-                                        final credential = await FirebaseAuth
-                                            .instance
-                                            .signInWithEmailAndPassword(
-                                                email: _emailcontroller.text,
-                                                password:
-                                                    _passwordcontroller.text)
-                                            .then((value) {
+                                        final credential =
+                                            await firebaseauthservice
+                                                .siginUser(
+                                                    email:
+                                                        _emailcontroller.text,
+                                                    password:
+                                                        _passwordcontroller
+                                                            .text)
+                                                .then((value) {
                                           setState(() {
                                             loading = false;
                                           });

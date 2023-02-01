@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:digital_map/models/rating_dialogbox.dart';
+import 'package:digital_map/models/Rating%20and%20feedback/rating_dialogbox.dart';
 import 'package:flutter/material.dart';
 
 //shows dialog box for rating

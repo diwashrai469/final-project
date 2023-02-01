@@ -1,4 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digital_map/models/Rating%20and%20feedback/RatingAndFeedback_model.dart';
+import 'package:digital_map/models/firebase/firestore.dart';
 import 'package:flutter/material.dart';
 
 //shows content of 2nd page of rating
@@ -16,6 +17,7 @@ class ratingDialogContent2 extends StatefulWidget {
 
 class _ratingDialogContent2State extends State<ratingDialogContent2> {
   TextEditingController _feedbackController = TextEditingController();
+  final firebaseFirestoreService = FirebaseFirestoreService();
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +36,11 @@ class _ratingDialogContent2State extends State<ratingDialogContent2> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
-                  Map<String, String> datatosave = {
-                    'Rating': widget.newStarCount.toString(),
-                    "feedbacks": _feedbackController.text,
-                  };
-                  FirebaseFirestore.instance
-                      .collection('feedbacks and rating')
-                      .add(datatosave);
+                  ratingFeedback rating = ratingFeedback(
+                      feedbacks: _feedbackController.text,
+                      rating: widget.newStarCount.toString());
+                  firebaseFirestoreService.storeUser(rating);
+
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text("Thank you for your Rating and feedbacks"),
                     duration: Duration(seconds: 2),
