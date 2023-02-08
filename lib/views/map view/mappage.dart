@@ -4,6 +4,7 @@ import 'dart:ffi';
 //view google map and current location of the user
 
 import 'package:digital_map/models/geolocation_model.dart';
+import 'package:digital_map/views/drawer/drawer.dart';
 import 'package:digital_map/views/viewpage%20of%20food%20and%20ld/lodging_view.dart';
 import 'package:digital_map/views/viewpage%20of%20food%20and%20ld/restaurant_view.dart';
 import 'package:flutter/material.dart';
@@ -52,54 +53,7 @@ class _mymapState extends State<mymap> {
           return false;
         },
         child: Scaffold(
-            drawer: Drawer(
-              child: ListView(
-                children: [
-                  Icon(
-                    Icons.image,
-                    color: Colors.red,
-                    size: 50,
-                  ),
-                  Builder(builder: (context) {
-                    return ElevatedButton(
-                        onPressed: () {
-                          Scaffold.of(context).closeDrawer();
-                        },
-                        child: Icon(Icons.close));
-                  }),
-                  Text(
-                    'Full Name',
-                  ),
-                  Text(
-                    'Address',
-                  ),
-                  Divider(
-                    color: Colors.black,
-                  ),
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                        'First Menu',
-                      ),
-                    ),
-                  ),
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                        'Second Menu',
-                      ),
-                    ),
-                  ),
-                  Card(
-                    child: ListTile(
-                      title: Text(
-                        'Third Menu',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            drawer: myDrawer(),
             onDrawerChanged: (val) {
               print(val);
             },

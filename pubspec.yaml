@@ -50,6 +50,7 @@ dependencies:
   firebase_storage: ^11.0.10
   fluttertoast: ^8.1.2
   lottie: ^2.2.0
+  smooth_star_rating_null_safety: ^1.0.4+2
 
   
  

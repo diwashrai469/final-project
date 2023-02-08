@@ -5,10 +5,14 @@ import 'package:flutter/material.dart';
 //shows content of 2nd page of rating
 class ratingDialogContent2 extends StatefulWidget {
   double newStarCount;
+  String name;
+  String id;
 
   ratingDialogContent2({
     super.key,
+    required this.name,
     required this.newStarCount,
+    required this.id,
   });
 
   @override
@@ -16,7 +20,7 @@ class ratingDialogContent2 extends StatefulWidget {
 }
 
 class _ratingDialogContent2State extends State<ratingDialogContent2> {
-  TextEditingController _feedbackController = TextEditingController();
+  static TextEditingController feedbackController = TextEditingController();
   final firebaseFirestoreService = FirebaseFirestoreService();
 
   @override
@@ -36,10 +40,13 @@ class _ratingDialogContent2State extends State<ratingDialogContent2> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
-                  ratingFeedback rating = ratingFeedback(
-                      feedbacks: _feedbackController.text,
+                  //add id,name,feedbacks and rating to firestore
+                  ratingFeedback ratings = ratingFeedback(
+                      id: widget.id.toString(),
+                      name: widget.name,
+                      feedbacks: feedbackController.text,
                       rating: widget.newStarCount.toString());
-                  firebaseFirestoreService.storeUser(rating);
+                  firebaseFirestoreService.storeUser(ratings);
 
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text("Thank you for your Rating and feedbacks"),
@@ -48,6 +55,7 @@ class _ratingDialogContent2State extends State<ratingDialogContent2> {
 
                   setState(() {
                     Navigator.pop(context);
+                    feedbackController.clear();
                   });
                 },
               ),
@@ -63,7 +71,7 @@ class _ratingDialogContent2State extends State<ratingDialogContent2> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextFormField(
-                controller: _feedbackController,
+                controller: feedbackController,
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: "Write your review here",

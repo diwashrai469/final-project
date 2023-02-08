@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 //shows dialog box for rating
 
 class dialogForRating extends StatefulWidget {
-  const dialogForRating({super.key});
+  String name;
+  String id;
+  dialogForRating({super.key, required this.name, required this.id});
 
   @override
   State<dialogForRating> createState() => _dialogForRatingState();
@@ -33,6 +35,8 @@ class _dialogForRatingState extends State<dialogForRating> {
                   children: [
                     ratingDialogContent().anotherPageContent(),
                     ratingDialogContent2(
+                      id: widget.id.toString(),
+                      name: widget.name,
                       newStarCount: _starCount,
                     )
                   ],
