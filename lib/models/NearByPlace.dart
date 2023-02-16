@@ -1,9 +1,11 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:ffi';
 import 'dart:math';
 
 import 'package:digital_map/models/Rating%20and%20feedback/RatingAndFeedback_model.dart';
 import 'package:digital_map/models/geolocation_model.dart';
+import 'package:digital_map/views/map%20view/mappage.dart';
 import 'package:digital_map/views/rating%20view/rating_view.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -30,11 +32,13 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
 
   final mylocator = GeolocationModel();
   final firebaseFirestoreService = FirebaseFirestoreService();
+  double userlat = 0;
+  double userlong = 0;
 
   Future<void> getNearbyPlaces() async {
     mylocator.determinePosition().then((value) async {
-      double lat = value.latitude;
-      double long = value.longitude;
+      userlat = value.latitude;
+      userlong = value.longitude;
 
       var uri =
           Uri.https('trueway-places.p.rapidapi.com', '/FindPlacesNearby', {
@@ -46,7 +50,7 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
       });
 
       final response = await http.get(uri, headers: {
-        "X-RapidAPI-Key": "",
+        "X-RapidAPI-Key": "74b4f14334msha990350646a5892p1bd3bejsn63e2fa695c91",
         "X-RapidAPI-Host": "trueway-places.p.rapidapi.com",
         "useQueryString": "true"
       });
@@ -178,60 +182,78 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
                             }
                             return Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: Card(
-                                  child: ListTile(
-                                      leading: widget.icon,
-                                      title: Text(
-                                        newData['name'],
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      subtitle: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            newData["address"].toString(),
-                                            style: TextStyle(fontSize: 12),
-                                          ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          SmoothStarRating(
-                                              starCount: 5,
-                                              rating: ratingValue,
-                                              size: 23.0,
-                                              halfFilledIconData: Icons.blur_on,
-                                              color: Colors.orange,
-                                              borderColor: Colors.orange,
-                                              spacing: 0.0)
-                                        ],
-                                      ),
-                                      trailing: Card(
-                                        color: Colors.grey.shade100,
-                                        elevation: 2,
-                                        child: TextButton.icon(
-                                            onPressed: () {
-                                              showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return dialogForRating(
-                                                      id: newData['id'],
-                                                      name: newData['name'],
-                                                    );
-                                                  });
-                                            },
-                                            icon: Icon(
-                                              Icons.star,
-                                              color: Colors.orange.shade500,
+                              child: GestureDetector(
+                                onTap: () {
+                                  double destlat = newData['location']["lat"];
+                                  double destlong = newData['location']["lng"];
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => mymap(
+                                              userLat: userlat,
+                                              userLong: userlong,
+                                              destLat: destlat,
+                                              destLong: destlong,
+                                            )),
+                                  );
+                                },
+                                child: Card(
+                                    child: ListTile(
+                                        leading: widget.icon,
+                                        title: Text(
+                                          newData['name'],
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        subtitle: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              newData["address"].toString(),
+                                              style: TextStyle(fontSize: 12),
                                             ),
-                                            label: const Text("Rate us!",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.bold))),
-                                      ))),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            SmoothStarRating(
+                                                starCount: 5,
+                                                rating: ratingValue,
+                                                size: 23.0,
+                                                halfFilledIconData:
+                                                    Icons.blur_on,
+                                                color: Colors.orange,
+                                                borderColor: Colors.orange,
+                                                spacing: 0.0)
+                                          ],
+                                        ),
+                                        trailing: Card(
+                                          color: Colors.grey.shade100,
+                                          elevation: 2,
+                                          child: TextButton.icon(
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return dialogForRating(
+                                                        id: newData['id'],
+                                                        name: newData['name'],
+                                                      );
+                                                    });
+                                              },
+                                              icon: Icon(
+                                                Icons.star,
+                                                color: Colors.orange.shade500,
+                                              ),
+                                              label: const Text("Rate us!",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold))),
+                                        ))),
+                              ),
                             );
                           });
                     }),

@@ -23,4 +23,9 @@ class GeolocationModel {
     Position position = await Geolocator.getCurrentPosition();
     return position;
   }
+
+  getDestinationLocation() async {
+    Position? destinationPosition = await Geolocator.getLastKnownPosition();
+    return destinationPosition;
+  }
 }

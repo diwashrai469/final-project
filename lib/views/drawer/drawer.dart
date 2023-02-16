@@ -15,8 +15,7 @@ class _myDrawerState extends State<myDrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.7, //<-- SEE HERE
-
+      width: MediaQuery.of(context).size.width * 0.7,
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
             topRight: Radius.circular(35), bottomRight: Radius.circular(35)),
@@ -28,7 +27,7 @@ class _myDrawerState extends State<myDrawer> {
                 height: 20,
               ),
               Stack(
-                children: [
+                children: const [
                   Center(
                     child: CircleAvatar(
                       radius: 61,
@@ -68,8 +67,11 @@ class _myDrawerState extends State<myDrawer> {
                   child: MaterialButton(
                     onPressed: () {
                       setState(() {
-                        FirebaseAuth.instance.signOut();
-                        Navigator.popAndPushNamed(context, "/LogInPage");
+                        // FirebaseAuth.instance.signOut();
+                        Navigator.pushNamedAndRemoveUntil(context, '/LogInPage',
+                            (route) {
+                          return false;
+                        });
                       });
                     },
                     child: const Text(

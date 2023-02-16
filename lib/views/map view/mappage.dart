@@ -11,7 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class mymap extends StatefulWidget {
-  const mymap({super.key});
+  double? userLat;
+  double? userLong;
+  double? destLat;
+  double? destLong;
+
+  mymap({super.key, this.userLat, this.destLat, this.userLong, this.destLong});
 
   @override
   State<mymap> createState() => _mymapState();
@@ -21,10 +26,15 @@ class _mymapState extends State<mymap> {
   final Completer<GoogleMapController> _controller = Completer();
   final List<Marker> _markers = <Marker>[];
   final mygeoloactor = GeolocationModel();
+  final Set<Polyline> polyline = {};
 
   loadcurretlocation() {
     //for finding current loacation and marking it.
     mygeoloactor.determinePosition().then((value) async {
+      List<LatLng> latlen = [
+        LatLng(27.6710, 85.4298),
+        LatLng(27.7172, 85.4298),
+      ];
       _markers.add(Marker(
           markerId: const MarkerId('2'),
           position: LatLng(value.latitude, value.longitude),
@@ -33,6 +43,11 @@ class _mymapState extends State<mymap> {
         target: LatLng(value.latitude, value.longitude),
         zoom: 15,
       );
+
+      //adding polyline
+      polyline.add(Polyline(
+          polylineId: PolylineId('1'), points: latlen, color: Colors.blue));
+
       final GoogleMapController controller = await _controller.future;
       controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
       setState(() {});
@@ -42,6 +57,7 @@ class _mymapState extends State<mymap> {
   @override
   void initState() {
     super.initState();
+
     loadcurretlocation();
   }
 
@@ -147,6 +163,7 @@ class _mymapState extends State<mymap> {
                 myLocationButtonEnabled: true,
                 mapType: MapType.terrain,
                 markers: Set<Marker>.of(_markers),
+                polylines: polyline,
                 onMapCreated: (GoogleMapController controller) {
                   _controller.complete(controller);
                 },
