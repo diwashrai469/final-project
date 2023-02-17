@@ -63,6 +63,7 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
               print("error in fetch");
             }
             myplacelist = mydata['results'];
+           
             myplacelist.sort((a, b) {
               return a['name'].toLowerCase().compareTo(b['name'].toLowerCase());
             });
@@ -184,18 +185,10 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
                               padding: const EdgeInsets.all(10.0),
                               child: GestureDetector(
                                 onTap: () {
-                                  double destlat = newData['location']["lat"];
-                                  double destlong = newData['location']["lng"];
-
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => mymap(
-                                              userLat: userlat,
-                                              userLong: userlong,
-                                              destLat: destlat,
-                                              destLong: destlong,
-                                            )),
+                                        builder: (context) => mymap()),
                                   );
                                 },
                                 child: Card(
@@ -203,6 +196,7 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
                                         leading: widget.icon,
                                         title: Text(
                                           newData['name'],
+                                          
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
