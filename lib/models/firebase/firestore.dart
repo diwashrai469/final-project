@@ -3,10 +3,11 @@ import 'package:digital_map/models/Rating%20and%20feedback/RatingAndFeedback_mod
 
 //FOR STORING VALUE USER GIVES INTO THE FIRESTORE
 class FirebaseFirestoreService {
-  final firestoreInstance = FirebaseFirestore.instance;
-  final userCollectionPath = 'feedbacks and rating';
+  final firestoreInstance =
+      FirebaseFirestore.instance.collection('feedbacks and rating');
+
   Future<void> storeUser(ratingFeedback ratingandfeedback) async {
-    final userCollectionRef = firestoreInstance.collection(userCollectionPath);
+    final userCollectionRef = firestoreInstance;
     await userCollectionRef
         .doc(ratingandfeedback.id.toString())
         .set(ratingandfeedback.tojson());
@@ -14,10 +15,7 @@ class FirebaseFirestoreService {
 
   // getting all the value of user rating from firebase
   Stream<List<ratingFeedback>> getAllUserRatingStream() {
-    return firestoreInstance
-        .collection(userCollectionPath)
-        .snapshots()
-        .map((event) {
+    return firestoreInstance.snapshots().map((event) {
       return event.docs.map((e) {
         return ratingFeedback.fromJson(e.data());
       }).toList();

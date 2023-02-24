@@ -40,13 +40,24 @@ class _ratingDialogContent2State extends State<ratingDialogContent2> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
-                  //add id,name,feedbacks and rating to firestore
-                  ratingFeedback ratings = ratingFeedback(
-                      id: widget.id.toString(),
-                      name: widget.name,
-                      feedbacks: feedbackController.text,
-                      rating: widget.newStarCount.toString());
-                  firebaseFirestoreService.storeUser(ratings);
+                  List ratingList = [1, 2, 3, 4];
+                  final totalRating = widget.newStarCount;
+                  int numRating = ratingList.length;
+                  print("number:$ratingList");
+                  double averageRating = totalRating / numRating;
+                  double fairnessScore =
+                      (averageRating * numRating) / (numRating + 1);
+                  int newdata = fairnessScore.floor();
+                  print(totalRating);
+                  print("fainess:$newdata");
+                  print("average: $averageRating");
+                  //  add id,name,feedbacks and rating to firestore
+                  // ratingFeedback ratings = ratingFeedback(
+                  //     id: widget.id.toString(),
+                  //     name: widget.name,
+                  //     feedbacks: feedbackController.text,
+                  //     rating: newdata.toString());
+                  // firebaseFirestoreService.storeUser(ratings);
 
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text("Thank you for your Rating and feedbacks"),

@@ -1,5 +1,5 @@
 import 'package:digital_map/views/login/signin%20folder/loginpage.dart';
-import 'package:digital_map/views/map%20view/mappage.dart';
+import 'package:digital_map/views/mapview/mappage.dart';
 import 'package:digital_map/models/alert_dialog_model.dart';
 import 'package:digital_map/models/custome_button_model.dart';
 import 'package:digital_map/models/validity_models.dart';

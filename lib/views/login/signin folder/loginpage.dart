@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:digital_map/views/login/signin%20folder/signinpage.dart';
-import 'package:digital_map/views/map%20view/mappage.dart';
+import 'package:digital_map/views/mapview/mappage.dart';
 import 'package:digital_map/models/custome_button_model.dart';
 import 'package:digital_map/models/firebase/firebase_auth.dart';
 import 'package:digital_map/models/fluttertoast_model.dart';

@@ -5,7 +5,7 @@ import 'dart:math';
 
 import 'package:digital_map/models/Rating%20and%20feedback/RatingAndFeedback_model.dart';
 import 'package:digital_map/models/geolocation_model.dart';
-import 'package:digital_map/views/map%20view/mappage.dart';
+import 'package:digital_map/views/mapview/mappage.dart';
 import 'package:digital_map/views/rating%20view/rating_view.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -58,12 +58,14 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
       if (response.statusCode == 200) {
         if (mounted) {
           setState(() {
+          
+
             Map mydata = jsonDecode(response.body);
             if (mydata.isEmpty || mydata == null) {
               print("error in fetch");
             }
             myplacelist = mydata['results'];
-           
+
             myplacelist.sort((a, b) {
               return a['name'].toLowerCase().compareTo(b['name'].toLowerCase());
             });
@@ -196,7 +198,6 @@ class _NearByPlacesScreenState extends State<NearByPlacesScreen> {
                                         leading: widget.icon,
                                         title: Text(
                                           newData['name'],
-                                          
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
